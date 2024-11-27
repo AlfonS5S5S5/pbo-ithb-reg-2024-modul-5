@@ -4,9 +4,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,16 +30,27 @@ public class View extends JFrame implements ActionListener {
     JPanel radioPanel2 = new JPanel();
     JPanel panelGolDarah = new JPanel();
     JPanel panelAlamat = new JPanel();
+    JPanel panelRTRW = new JPanel();
+    JPanel panelKelDesa = new JPanel();
+    JPanel panelKecamatan = new JPanel();
+    JPanel panelAgama = new JPanel();
+    JPanel panelKawin = new JPanel();
+    JPanel panelPekerjaan = new JPanel();
+    JPanel panelKewarganegaraan = new JPanel();
 
     //TextField buat input
     JTextField NIK = new JTextField();
     JTextField Nama = new JTextField();
     JTextField tempatLahir = new JTextField();
     JTextField alamat = new JTextField();
+    JTextField RTRW = new JTextField();
+    JTextField KelDesa = new JTextField();
+    JTextField kecamatan = new JTextField();
 
     //Radio Button
     ButtonGroup rButtonGroup1 = new ButtonGroup();
     ButtonGroup rButtonGroup2 = new ButtonGroup();
+    ButtonGroup kewarganegaraanButton = new ButtonGroup();
 
     JRadioButton rButtonPria = new JRadioButton("Male");
     JRadioButton rButtonWanita = new JRadioButton("Wanita");
@@ -45,6 +59,9 @@ public class View extends JFrame implements ActionListener {
     JRadioButton rButtonB = new JRadioButton("B");
     JRadioButton rButtonO = new JRadioButton("O");
     JRadioButton rButtonAB = new JRadioButton("AB");
+
+    JRadioButton rWNI = new JRadioButton("WNI");
+    JRadioButton rWNA = new JRadioButton("WNA");
 
     //Submit
     JButton button = new JButton("Submit");
@@ -56,7 +73,7 @@ public class View extends JFrame implements ActionListener {
     private void initComponents () {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Latihan Modul 5");
-        this.setSize(400,300);
+        this.setSize(1000,1000);
         this.setLayout(null);
         this.getContentPane().setBackground(new Color(0x11bdd4));
 
@@ -214,7 +231,6 @@ public class View extends JFrame implements ActionListener {
         rButtonGroup2.add(rButtonB);
         rButtonGroup2.add(rButtonO);
         rButtonGroup2.add(rButtonAB);
-
         //______________________________________________________________________________________
 
 
@@ -238,10 +254,250 @@ public class View extends JFrame implements ActionListener {
 
         panelAlamat.add(labelAlamat); //JLabel
         panelAlamat.add(alamat); //TextField
+        //_______________________________________________________________________________________
 
 
+        //_________________________________________RT/RW_______________________________________
+
+        //buat label
+        panelRTRW.setLayout(null);
+        panelRTRW.setBackground(new Color(0x11bdd4));
+        panelRTRW.setBounds(20, 410, 360, 50);
+
+        //Text kiri nya input
+        JLabel labelRTRW = new JLabel("RT/RW ");
+        labelRTRW.setBounds(10, 5, 50, 20);
+
+        //Nama buat input area nya
+        RTRW.setBounds(10, 25, 200, 25);
+        RTRW.setPreferredSize(ukuranTextField);
+        RTRW.setMaximumSize(ukuranTextField);
+        RTRW.setForeground(Color.BLACK);
+        RTRW.setBackground(new Color(0xffffff));
+
+        panelRTRW.add(labelRTRW); //JLabel
+        panelRTRW.add(RTRW); //TextField
+        //_______________________________________________________________________________________
 
 
+        //_________________________________________Kel/Desa_______________________________________
+
+        //buat label
+        panelKelDesa.setLayout(null);
+        panelKelDesa.setBackground(new Color(0x11bdd4));
+        panelKelDesa.setBounds(20, 470, 360, 50);
+
+        //Text kiri nya input
+        JLabel labelKelDesa = new JLabel("Kel/Desa ");
+        labelKelDesa.setBounds(10, 5, 100, 20);
+
+        //Nama buat input area nya
+        KelDesa.setBounds(10, 25, 200, 25);
+        KelDesa.setPreferredSize(ukuranTextField);
+        KelDesa.setMaximumSize(ukuranTextField);
+        KelDesa.setForeground(Color.BLACK);
+        KelDesa.setBackground(new Color(0xffffff));
+
+        panelKelDesa.add(labelKelDesa); //JLabel
+        panelKelDesa.add(KelDesa); //TextField
+        //_______________________________________________________________________________________
+
+
+        //_______________________________________Kecamatan_______________________________________
+
+        //buat label
+        panelKecamatan.setLayout(null);
+        panelKecamatan.setBackground(new Color(0x11bdd4));
+        panelKecamatan.setBounds(20, 530, 360, 50);
+
+        //Text kiri nya input
+        JLabel labelKecamatan = new JLabel("Kecamatan ");
+        labelKecamatan.setBounds(10, 5, 100, 20);
+
+        //Nama buat input area nya
+        kecamatan.setBounds(10, 25, 200, 25);
+        kecamatan.setPreferredSize(ukuranTextField);
+        kecamatan.setMaximumSize(ukuranTextField);
+        kecamatan.setForeground(Color.BLACK);
+        kecamatan.setBackground(new Color(0xffffff));
+
+        panelKecamatan.add(labelKecamatan); //JLabel
+        panelKecamatan.add(kecamatan); //TextField
+        //_______________________________________________________________________________________
+
+
+        //Ke Kanan
+        //_______________________________________Agama_______________________________________
+
+        panelAgama.setLayout(null);
+        panelAgama.setBackground(new Color(0x11bdd4));
+        panelAgama.setBounds(400, 20, 400, 100);
+
+        JLabel labelAgama = new JLabel("Agama ");
+        labelAgama.setBounds(70, 17, 100, 30);
+
+        // MAKE COMBO BOX
+        JComboBox<String> agamaComboBox = new JComboBox<>();
+        agamaComboBox.addItem("");
+        agamaComboBox.addItem("KATOLIK");
+        agamaComboBox.addItem("KRISTEN");
+        agamaComboBox.addItem("HINDU");
+        agamaComboBox.addItem("BUDDHA");
+        agamaComboBox.addItem("KONGHUCU");
+        agamaComboBox.addItem("ISLAM");
+
+        agamaComboBox.setBounds(120, 20, 250, 25);
+
+        panelAgama.add(labelAgama);
+        panelAgama.add(agamaComboBox);
+        //_______________________________________________________________________________________
+
+
+        //___________________________________Status Perkawinan___________________________________
+
+        panelKawin.setLayout(null);
+        panelKawin.setBackground(new Color(0x11bdd4));
+        panelKawin.setBounds(400, 80, 400, 100);
+
+        JLabel labelKawin = new JLabel("Status Perkawinan ");
+        labelKawin.setBounds(70, 45, 120, 30);
+
+        // MAKE COMBO BOX
+        JComboBox<String> kawinComboBox = new JComboBox<>();
+        kawinComboBox.addItem("");
+        kawinComboBox.addItem("Belum Menikah");
+        kawinComboBox.addItem("Menikah");
+        kawinComboBox.addItem("Janda/Duda");
+
+        kawinComboBox.setBounds(190, 50, 150, 20);
+
+        panelKawin.add(labelKawin);
+        panelKawin.add(kawinComboBox);
+        //_______________________________________________________________________________________
+
+
+        //_______________________________________Pekerjaan_______________________________________
+
+        panelPekerjaan.setLayout(null);
+        panelPekerjaan.setBackground(new Color(0x11bdd4));
+        panelPekerjaan.setBounds(400, 140, 400, 200);
+
+        JLabel labelPekerjaan = new JLabel("Pekerjaan : ");
+        labelPekerjaan.setBounds(70, 55, 120, 30);
+
+        JCheckBox cekKaryawanSwasta = new JCheckBox("Karyawan Swasta");
+        cekKaryawanSwasta.setBounds(70, 90, 150, 20);
+
+        JCheckBox pnsCheck = new JCheckBox("PNS");
+        pnsCheck.setBounds(240, 90, 150, 20);
+
+        JCheckBox wiraswastaCheck = new JCheckBox("Wiraswasta");
+        wiraswastaCheck.setBounds(70, 120, 150, 20);
+
+        JCheckBox akademisiCheck = new JCheckBox("Akademisi");
+        akademisiCheck.setBounds(240, 120, 150, 20);
+
+        JCheckBox pengangguranCheck = new JCheckBox("Pengangguran");
+        pengangguranCheck.setBounds(70, 150, 150, 20);
+        
+        pengangguranCheck.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (pengangguranCheck.isSelected()) {
+
+                    cekKaryawanSwasta.setEnabled(false);
+                    pnsCheck.setEnabled(false);
+                    wiraswastaCheck.setEnabled(false);
+                    akademisiCheck.setEnabled(false);
+
+                    cekKaryawanSwasta.setSelected(false);
+                    pnsCheck.setSelected(false);
+                    wiraswastaCheck.setSelected(false);
+                    akademisiCheck.setSelected(false);
+
+                } else {
+
+                    cekKaryawanSwasta.setEnabled(true);
+                    pnsCheck.setEnabled(true);
+                    wiraswastaCheck.setEnabled(true);
+                    akademisiCheck.setEnabled(true);
+
+                }
+
+            }
+
+        });
+
+
+        panelPekerjaan.add(labelPekerjaan);
+        panelPekerjaan.add(cekKaryawanSwasta);
+        panelPekerjaan.add(pnsCheck);
+        panelPekerjaan.add(wiraswastaCheck);
+        panelPekerjaan.add(akademisiCheck);
+        panelPekerjaan.add(pengangguranCheck);
+        //_______________________________________________________________________________________
+
+
+        //___________________________________Kewarganegaraan_____________________________________
+
+        panelKewarganegaraan.setLayout(null);
+        panelKewarganegaraan.setBackground(new Color(0x11bdd4));
+        panelKewarganegaraan.setBounds(400, 210, 400, 200);
+        
+        JLabel labelKewarganegaraan = new JLabel("Kewarganegaraan : ");
+        labelKewarganegaraan.setBounds(70, 65, 120, 30);
+
+        rWNI.setBounds(WIDTH, WIDTH, WIDTH, HEIGHT);
+        rWNA.setBounds(WIDTH, WIDTH, WIDTH, HEIGHT);
+
+        rWNI.setActionCommand("WNI");
+        rWNA.setActionCommand("WNA");
+
+        panelKewarganegaraan.add(labelKewarganegaraan);
+
+        kewarganegaraanButton.add(rWNI);
+        kewarganegaraanButton.add(rWNA);
+
+        panelKewarganegaraan.add(rWNI);
+        panelKewarganegaraan.add(rWNA);
+
+
+        // JLabel countryLabel = new JLabel("ASAL NEGARA");
+        // countryLabel.setBounds(600, 320, 300, 50);
+        // countryLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        // countryLabel.setVisible(false); // SET VISIBLE FALSE -> DEFAULT
+        // formPanel.add(countryLabel);
+
+        // JTextField citizenshipField = new JTextField();
+        // citizenshipField.setBounds(850, 330, 300, 30);
+        // citizenshipField.setVisible(false); // SET VISIBLE FALSE -> DEFAULT
+        // formPanel.add(citizenshipField);
+
+        // wnaRadio.addActionListener(new ActionListener() {
+
+        //     public void actionPerformed(ActionEvent e) {
+
+        //         countryLabel.setVisible(true);
+        //         citizenshipField.setVisible(true);
+
+        //     }
+
+        // });
+
+        // wniRadio.addActionListener(new ActionListener() {
+
+        //     public void actionPerformed(ActionEvent e) {
+
+        //         countryLabel.setVisible(false);
+        //         citizenshipField.setVisible(false);
+        //         citizenshipField.setText("");
+
+        //     }
+
+        // });
+
+        //_______________________________________________________________________________________
 
 
 
@@ -275,6 +531,15 @@ public class View extends JFrame implements ActionListener {
         this.add(panelTempatLahir);
         this.add(panelJenisKelamin);
         this.add(panelGolDarah);
+        this.add(panelAlamat);
+        this.add(panelRTRW);
+        this.add(panelKelDesa);
+        this.add(panelKecamatan);
+        this.add(panelAgama);
+        this.add(panelKawin);
+        this.add(panelPekerjaan);
+        this.add(panelKewarganegaraan);
+
         this.add(buttonPanel);
         this.setVisible(true);
     }
