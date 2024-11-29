@@ -1,565 +1,535 @@
 package view;
 
-import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
-import javax.swing.Box;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import controller.controller;
+import model.classessss.KTP;
+import model.enummm.JenisAgama;
+import model.enummm.JenisKelamin;
+import model.enummm.StatusPerkawinan;
+public class View {
 
-public class View extends JFrame implements ActionListener {
-    JFrame frame = new JFrame();
+    private File photoFile;
+    private File signatureFile;
 
-    //Panel
-    JPanel panelNIK = new JPanel();
-    JPanel panelNama = new JPanel();
-    JPanel panelTempatLahir = new JPanel();
-    JPanel panelJenisKelamin = new JPanel();
-    JPanel buttonPanel = new JPanel();
-    JPanel radioPanel1 = new JPanel();
-    JPanel radioPanel2 = new JPanel();
-    JPanel panelGolDarah = new JPanel();
-    JPanel panelAlamat = new JPanel();
-    JPanel panelRTRW = new JPanel();
-    JPanel panelKelDesa = new JPanel();
-    JPanel panelKecamatan = new JPanel();
-    JPanel panelAgama = new JPanel();
-    JPanel panelKawin = new JPanel();
-    JPanel panelPekerjaan = new JPanel();
-    JPanel panelKewarganegaraan = new JPanel();
+    public View(int actionValue, KTP myKtp) {
 
-    //TextField buat input
-    JTextField NIK = new JTextField();
-    JTextField Nama = new JTextField();
-    JTextField tempatLahir = new JTextField();
-    JTextField alamat = new JTextField();
-    JTextField RTRW = new JTextField();
-    JTextField KelDesa = new JTextField();
-    JTextField kecamatan = new JTextField();
+        showForm(actionValue, myKtp);
 
-    //Radio Button
-    ButtonGroup rButtonGroup1 = new ButtonGroup();
-    ButtonGroup rButtonGroup2 = new ButtonGroup();
-    ButtonGroup kewarganegaraanButton = new ButtonGroup();
-
-    JRadioButton rButtonPria = new JRadioButton("Male");
-    JRadioButton rButtonWanita = new JRadioButton("Wanita");
-
-    JRadioButton rButtonA = new JRadioButton("A");
-    JRadioButton rButtonB = new JRadioButton("B");
-    JRadioButton rButtonO = new JRadioButton("O");
-    JRadioButton rButtonAB = new JRadioButton("AB");
-
-    JRadioButton rWNI = new JRadioButton("WNI");
-    JRadioButton rWNA = new JRadioButton("WNA");
-
-    //Submit
-    JButton button = new JButton("Submit");
-
-    public View () {
-        initComponents();
     }
 
-    private void initComponents () {
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setTitle("Latihan Modul 5");
-        this.setSize(1000,1000);
-        this.setLayout(null);
-        this.getContentPane().setBackground(new Color(0x11bdd4));
+    public void showForm(int actionValue, KTP myKtp) {
 
-        Dimension ukuranTextField = new Dimension(200, 25);
-        
-        button.setPreferredSize(new Dimension(100, 30));
-        button.setBackground(Color.yellow);
-        button.addActionListener(this);
+        //_____________________________Screen__________________________
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension screen = toolkit.getScreenSize(); //screen size
 
-        //________________________Label Title_____________________________
-        JLabel judul = new JLabel("Form KTP");
-        judul.setBounds(80, 10, 100, 10);
-        judul.setBackground(new Color(0x11bdd4));
-        judul.setOpaque(true);
-        this.add(judul);
-        //________________________________________________________________
+        int widthScreen = screen.width; //width
+        int heightScreen = screen.height; //height
 
+        final int FRAME_WIDTH = 1200; //width
+        final int FRAME_HEIGHT = 800; // height
 
-        //___________________________NIK___________________________________
-        //buat label
-        panelNIK.setLayout(null);
-        panelNIK.setBackground(new Color(0x11bdd4));
-        panelNIK.setBounds(20, 20, 360, 50);
+        int start_x = widthScreen / 2 - (FRAME_WIDTH / 2);
+        int start_y = heightScreen / 2 - (FRAME_HEIGHT / 2);
+        //_______________________________________________________________
 
-        //Text kiri nya input
-        JLabel labelNIK = new JLabel("NIK ");
-        labelNIK.setBounds(10, 5, 50, 20);
+        JFrame myFrame = new JFrame("Form KTP");
 
-        //NIK buat textfield nya
-        NIK.setBounds(10, 25, 200, 25);
-        NIK.setPreferredSize(ukuranTextField);
-        NIK.setMaximumSize(ukuranTextField);
-        NIK.setForeground(Color.BLACK);
-        NIK.setBackground(new Color(0xffffff));
+        myFrame.setBounds(start_x, start_y, FRAME_WIDTH, FRAME_HEIGHT);
+        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        panelNIK.add(labelNIK); //JLabel
-        panelNIK.add(NIK); //TextField
-        //______________________________________________________________
+        JPanel panelKTP = new JPanel();
+        panelKTP.setLayout(null);
+        panelKTP.setBounds(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
 
+        JLabel nikLabel = new JLabel("NIK");
+        nikLabel.setBounds(50, 50, 200, 50);
+        panelKTP.add(nikLabel);
 
-        //___________________________Nama_______________________________
-        //buat label
-        panelNama.setLayout(null);
-        panelNama.setBackground(new Color(0x11bdd4));
-        panelNama.setBounds(20, 80, 360, 50);
+        JTextField nikField = new JTextField();
+        nikField.setBounds(250, 60, 300, 30);
+        panelKTP.add(nikField);
 
-        //Text kiri nya input
-        JLabel labelNama = new JLabel("Nama ");
-        labelNama.setBounds(10, 5, 50, 20);
+        JLabel namaLabel = new JLabel("Nama");
+        namaLabel.setBounds(50, 100, 200, 50);
+        panelKTP.add(namaLabel);
 
-        //Nama buat input area nya
-        Nama.setBounds(10, 25, 200, 25);
-        Nama.setPreferredSize(ukuranTextField);
-        Nama.setMaximumSize(ukuranTextField);
-        Nama.setForeground(Color.BLACK);
-        Nama.setBackground(new Color(0xffffff));
+        JTextField namaField = new JTextField();
+        namaField.setBounds(250, 110, 300, 30);
+        panelKTP.add(namaField);
 
-        panelNama.add(labelNama); //JLabel
-        panelNama.add(Nama); //TextField
-        //______________________________________________________________
+        JLabel tempatLahirLabel = new JLabel("Tempat Lahir");
+        tempatLahirLabel.setBounds(50, 150, 200, 50);
+        panelKTP.add(tempatLahirLabel);
 
+        JTextField tempatLahirField = new JTextField();
+        tempatLahirField.setBounds(250, 160, 300, 30);
+        panelKTP.add(tempatLahirField);
 
-        //_________________________Tempat Lahir_________________________
-        //buat label
-        panelTempatLahir.setLayout(null);
-        panelTempatLahir.setBackground(new Color(0x11bdd4));
-        panelTempatLahir.setBounds(20, 140, 360, 50);
-        
-        //Text kiri nya input
-        JLabel labelTempatLahir = new JLabel ("Tempat Lahir ");
-        labelTempatLahir.setBounds(10, 5, 100, 20);
+        JLabel tglLahirLabel = new JLabel("Tanggal Lahir");
+        tglLahirLabel.setBounds(50, 200, 200, 50);
+        panelKTP.add(tglLahirLabel);
 
-        //Tempat lahir buat input area nya
-        tempatLahir.setBounds(10, 25, 200, 25);
-        tempatLahir.setPreferredSize(ukuranTextField);
-        tempatLahir.setMaximumSize(ukuranTextField);
-        tempatLahir.setForeground((Color.BLACK));
-        tempatLahir.setBackground(new Color (0xffffff));
+        // UtilDateModel model = new UtilDateModel();
+        // Properties p = new Properties();
+        // JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+        // JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 
-        panelTempatLahir.add(labelTempatLahir);
-        panelTempatLahir.add(tempatLahir);
-        //________________________________________________________________
+        // datePicker.setBounds(250, 210, 300, 30);
+        // panelKTP.add(datePicker);
 
+        JLabel genderLabel = new JLabel("Jenis Kelamin");
+        genderLabel.setBounds(50, 250, 200, 50);
+        panelKTP.add(genderLabel);
 
-        // ____________________________ Tanggal Lahir (Date Picker) ____________________________
-        //JDatePicker sm Calender masih gabisa koo T.T
-        //______________________________________________________________________________________
+        JRadioButton rPria = new JRadioButton("Pria");
+        JRadioButton rWanita = new JRadioButton("Wanita");
 
+        rPria.setBounds(250, 250, 90, 50);
+        rWanita.setBounds(340, 250, 100, 50);
 
+        ButtonGroup genderGroup = new ButtonGroup();
+        genderGroup.add(rPria);
+        genderGroup.add(rWanita);
 
-        // __________________________________Jenis Kelamin______________________________________
-        panelJenisKelamin.setLayout(null);
-        panelJenisKelamin.setBackground(new Color(0x11bdd4));
-        panelJenisKelamin.setBounds(20, 200, 360, 60);
+        panelKTP.add(rPria);
+        panelKTP.add(rWanita);
 
-        JLabel labelJenisKelamin = new JLabel("Jenis Kelamin ");
-        labelJenisKelamin.setBounds(10, 5, 100, 20);
+        JLabel golDarahLabel = new JLabel("Gol.Darah");
+        golDarahLabel.setBounds(50, 300, 200, 50);
+        panelKTP.add(golDarahLabel);
 
-        panelJenisKelamin.add(labelJenisKelamin);
-        panelJenisKelamin.add(Box.createRigidArea(new Dimension(0, 5)));
+        JRadioButton aRadio = new JRadioButton("A");
+        JRadioButton bRadio = new JRadioButton("B");
+        JRadioButton oRadio = new JRadioButton("O");
+        JRadioButton abRadio = new JRadioButton("AB");
 
-        radioPanel1.setLayout(null);
-        radioPanel1.setBounds(10, 25, 200, 30);
-        rButtonPria.setBounds(0, 0, 70, 20);
-        rButtonWanita.setBounds(80, 0, 70, 20);
+        aRadio.setBounds(250, 300, 50, 50);
+        bRadio.setBounds(340, 300, 50, 50);
+        oRadio.setBounds(430, 300, 50, 50);
+        abRadio.setBounds(510, 300, 50, 50);
 
-        radioPanel1.setBackground(new Color (0x11bdd4));
-        rButtonPria.setBackground(new Color(0x11bdd4));
-        rButtonWanita.setBackground(new Color(0x11bdd4));
-        
-        radioPanel1.add(rButtonPria);
-        radioPanel1.add(rButtonWanita);
+        ButtonGroup golDarahGroup = new ButtonGroup();
+        golDarahGroup.add(aRadio);
+        golDarahGroup.add(bRadio);
+        golDarahGroup.add(oRadio);
+        golDarahGroup.add(abRadio);
 
-        panelJenisKelamin.add(radioPanel1);
-        
-        rButtonGroup1.add(rButtonPria);
-        rButtonGroup1.add(rButtonWanita);
-        //______________________________________________________________________________________
+        aRadio.setActionCommand("A");
+        bRadio.setActionCommand("B");
+        oRadio.setActionCommand("O");
+        abRadio.setActionCommand("AB");
 
+        panelKTP.add(aRadio);
+        panelKTP.add(bRadio);
+        panelKTP.add(oRadio);
+        panelKTP.add(abRadio);
 
-        //_____________________________________Golongan Darah___________________________________
+        JLabel alamatLabel = new JLabel("Alamat");
+        alamatLabel.setBounds(50, 350, 200, 50);
+        panelKTP.add(alamatLabel);
 
-        panelGolDarah.setLayout(null);
-        panelGolDarah.setBackground(new Color(0x11bdd4));
-        panelGolDarah.setBounds(20, 270, 360, 60);
+        JTextField alamatField = new JTextField();
+        alamatField.setBounds(250, 360, 300, 30);
+        panelKTP.add(alamatField);
 
-        JLabel labelGolDarah = new JLabel("Gol.Darah");
-        labelGolDarah.setBounds(10, 5, 100, 20);
+        JLabel rtLabel = new JLabel("RT");
+        rtLabel.setBounds(250, 400, 50, 50);
+        panelKTP.add(rtLabel);
 
-        panelGolDarah.add(labelGolDarah);
-        panelGolDarah.add(Box.createRigidArea(new Dimension(0, 5)));
+        JTextField rtField = new JTextField();
+        rtField.setBounds(300, 410, 50, 30);
+        panelKTP.add(rtField);
 
-        radioPanel2.setLayout(null);
-        radioPanel2.setBounds(10, 25, 400, 30);
-        
-        rButtonA.setBounds(0, 0, 70, 20);
-        rButtonB.setBounds(80, 0, 70, 20);
-        rButtonO.setBounds(160, 0, 70, 20);
-        rButtonAB.setBounds(240, 0, 70, 20);
-        
-        radioPanel2.setBackground(new Color (0x11bdd4));
-        rButtonA.setBackground(new Color(0x11bdd4));
-        rButtonB.setBackground(new Color(0x11bdd4));
-        rButtonO.setBackground(new Color(0x11bdd4));
-        rButtonAB.setBackground(new Color(0x11bdd4));
-        
-        radioPanel2.add(rButtonA);
-        radioPanel2.add(rButtonB);
-        radioPanel2.add(rButtonO);
-        radioPanel2.add(rButtonAB);
+        JLabel rwLabel = new JLabel("RW");
+        rwLabel.setBounds(450, 400, 50, 50);
+        panelKTP.add(rwLabel);
 
-        panelGolDarah.add(radioPanel2);
-        
-        rButtonGroup2.add(rButtonA);
-        rButtonGroup2.add(rButtonB);
-        rButtonGroup2.add(rButtonO);
-        rButtonGroup2.add(rButtonAB);
-        //______________________________________________________________________________________
+        JTextField rwField = new JTextField();
+        rwField.setBounds(500, 410, 50, 30);
+        panelKTP.add(rwField);
 
+        JLabel kelurahanLabel = new JLabel("Kel/Desa");
+        kelurahanLabel.setBounds(50, 450, 200, 50);
+        panelKTP.add(kelurahanLabel);
 
-        //_________________________________________Alamat_______________________________________
+        JTextField kelurahanField = new JTextField();
+        kelurahanField.setBounds(250, 460, 300, 30);
+        panelKTP.add(kelurahanField);
 
-        //buat label
-        panelAlamat.setLayout(null);
-        panelAlamat.setBackground(new Color(0x11bdd4));
-        panelAlamat.setBounds(20, 330, 360, 50);
+        JLabel kecamatanLabel = new JLabel("Kecamatan");
+        kecamatanLabel.setBounds(50, 500, 200, 50);
+        panelKTP.add(kecamatanLabel);
 
-        //Text kiri nya input
-        JLabel labelAlamat = new JLabel("Alamat ");
-        labelAlamat.setBounds(10, 5, 50, 20);
+        JTextField kecamatanField = new JTextField();
+        kecamatanField.setBounds(250, 510, 300, 30);
+        panelKTP.add(kecamatanField);
 
-        //Nama buat input area nya
-        alamat.setBounds(10, 25, 200, 25);
-        alamat.setPreferredSize(ukuranTextField);
-        alamat.setMaximumSize(ukuranTextField);
-        alamat.setForeground(Color.BLACK);
-        alamat.setBackground(new Color(0xffffff));
+        // -------------------------------- Kanan --------------------------------
 
-        panelAlamat.add(labelAlamat); //JLabel
-        panelAlamat.add(alamat); //TextField
-        //_______________________________________________________________________________________
+        JLabel agamaLabel = new JLabel("Agama");
+        agamaLabel.setBounds(600, 50, 200, 50);
+        panelKTP.add(agamaLabel);
 
-
-        //_________________________________________RT/RW_______________________________________
-
-        //buat label
-        panelRTRW.setLayout(null);
-        panelRTRW.setBackground(new Color(0x11bdd4));
-        panelRTRW.setBounds(20, 410, 360, 50);
-
-        //Text kiri nya input
-        JLabel labelRTRW = new JLabel("RT/RW ");
-        labelRTRW.setBounds(10, 5, 50, 20);
-
-        //Nama buat input area nya
-        RTRW.setBounds(10, 25, 200, 25);
-        RTRW.setPreferredSize(ukuranTextField);
-        RTRW.setMaximumSize(ukuranTextField);
-        RTRW.setForeground(Color.BLACK);
-        RTRW.setBackground(new Color(0xffffff));
-
-        panelRTRW.add(labelRTRW); //JLabel
-        panelRTRW.add(RTRW); //TextField
-        //_______________________________________________________________________________________
-
-
-        //_________________________________________Kel/Desa_______________________________________
-
-        //buat label
-        panelKelDesa.setLayout(null);
-        panelKelDesa.setBackground(new Color(0x11bdd4));
-        panelKelDesa.setBounds(20, 470, 360, 50);
-
-        //Text kiri nya input
-        JLabel labelKelDesa = new JLabel("Kel/Desa ");
-        labelKelDesa.setBounds(10, 5, 100, 20);
-
-        //Nama buat input area nya
-        KelDesa.setBounds(10, 25, 200, 25);
-        KelDesa.setPreferredSize(ukuranTextField);
-        KelDesa.setMaximumSize(ukuranTextField);
-        KelDesa.setForeground(Color.BLACK);
-        KelDesa.setBackground(new Color(0xffffff));
-
-        panelKelDesa.add(labelKelDesa); //JLabel
-        panelKelDesa.add(KelDesa); //TextField
-        //_______________________________________________________________________________________
-
-
-        //_______________________________________Kecamatan_______________________________________
-
-        //buat label
-        panelKecamatan.setLayout(null);
-        panelKecamatan.setBackground(new Color(0x11bdd4));
-        panelKecamatan.setBounds(20, 530, 360, 50);
-
-        //Text kiri nya input
-        JLabel labelKecamatan = new JLabel("Kecamatan ");
-        labelKecamatan.setBounds(10, 5, 100, 20);
-
-        //Nama buat input area nya
-        kecamatan.setBounds(10, 25, 200, 25);
-        kecamatan.setPreferredSize(ukuranTextField);
-        kecamatan.setMaximumSize(ukuranTextField);
-        kecamatan.setForeground(Color.BLACK);
-        kecamatan.setBackground(new Color(0xffffff));
-
-        panelKecamatan.add(labelKecamatan); //JLabel
-        panelKecamatan.add(kecamatan); //TextField
-        //_______________________________________________________________________________________
-
-
-        //Ke Kanan
-        //_______________________________________Agama_______________________________________
-
-        panelAgama.setLayout(null);
-        panelAgama.setBackground(new Color(0x11bdd4));
-        panelAgama.setBounds(400, 20, 400, 100);
-
-        JLabel labelAgama = new JLabel("Agama ");
-        labelAgama.setBounds(70, 17, 100, 30);
-
-        // MAKE COMBO BOX
         JComboBox<String> agamaComboBox = new JComboBox<>();
-        agamaComboBox.addItem("");
-        agamaComboBox.addItem("KATOLIK");
-        agamaComboBox.addItem("KRISTEN");
-        agamaComboBox.addItem("HINDU");
-        agamaComboBox.addItem("BUDDHA");
-        agamaComboBox.addItem("KONGHUCU");
-        agamaComboBox.addItem("ISLAM");
+        agamaComboBox.addItem("Katolik");
+        agamaComboBox.addItem("Kristen");
+        agamaComboBox.addItem("Hindu");
+        agamaComboBox.addItem("Buddha");
+        agamaComboBox.addItem("Konghucu");
+        agamaComboBox.addItem("Islam");
 
-        agamaComboBox.setBounds(120, 20, 250, 25);
+        agamaComboBox.setBounds(850, 60, 300, 30);
+        panelKTP.add(agamaComboBox);
 
-        panelAgama.add(labelAgama);
-        panelAgama.add(agamaComboBox);
-        //_______________________________________________________________________________________
+        JLabel statusPerkawinanLabel = new JLabel("Status Perkawinan");
+        statusPerkawinanLabel.setBounds(600, 100, 300, 50);
+        panelKTP.add(statusPerkawinanLabel);
 
+        JComboBox<String> perkawinanBox = new JComboBox<>();
+        perkawinanBox.addItem("Menikah");
+        perkawinanBox.addItem("Janda");
+        perkawinanBox.addItem("Duda");
+        perkawinanBox.addItem("Belum Menikah");
 
-        //___________________________________Status Perkawinan___________________________________
+        perkawinanBox.setBounds(850, 110, 300, 30);
+        panelKTP.add(perkawinanBox);
 
-        panelKawin.setLayout(null);
-        panelKawin.setBackground(new Color(0x11bdd4));
-        panelKawin.setBounds(400, 80, 400, 100);
+        JLabel pekerjaanLabel = new JLabel("Pekerjaan");
+        pekerjaanLabel.setBounds(600, 150, 300, 50);
+        panelKTP.add(pekerjaanLabel);
 
-        JLabel labelKawin = new JLabel("Status Perkawinan ");
-        labelKawin.setBounds(70, 45, 120, 30);
-
-        // MAKE COMBO BOX
-        JComboBox<String> kawinComboBox = new JComboBox<>();
-        kawinComboBox.addItem("");
-        kawinComboBox.addItem("Belum Menikah");
-        kawinComboBox.addItem("Menikah");
-        kawinComboBox.addItem("Janda/Duda");
-
-        kawinComboBox.setBounds(190, 50, 150, 20);
-
-        panelKawin.add(labelKawin);
-        panelKawin.add(kawinComboBox);
-        //_______________________________________________________________________________________
-
-
-        //_______________________________________Pekerjaan_______________________________________
-
-        panelPekerjaan.setLayout(null);
-        panelPekerjaan.setBackground(new Color(0x11bdd4));
-        panelPekerjaan.setBounds(400, 140, 400, 200);
-
-        JLabel labelPekerjaan = new JLabel("Pekerjaan : ");
-        labelPekerjaan.setBounds(70, 55, 120, 30);
-
-        JCheckBox cekKaryawanSwasta = new JCheckBox("Karyawan Swasta");
-        cekKaryawanSwasta.setBounds(70, 90, 150, 20);
+        JCheckBox karyawanSwastaCheck = new JCheckBox("Karyawan Swasta");
+        karyawanSwastaCheck.setBounds(850, 150, 150, 50);
 
         JCheckBox pnsCheck = new JCheckBox("PNS");
-        pnsCheck.setBounds(240, 90, 150, 20);
+        pnsCheck.setBounds(1000, 150, 150, 50);
 
         JCheckBox wiraswastaCheck = new JCheckBox("Wiraswasta");
-        wiraswastaCheck.setBounds(70, 120, 150, 20);
+        wiraswastaCheck.setBounds(850, 190, 150, 50);
 
         JCheckBox akademisiCheck = new JCheckBox("Akademisi");
-        akademisiCheck.setBounds(240, 120, 150, 20);
+        akademisiCheck.setBounds(1000, 190, 150, 50);
 
         JCheckBox pengangguranCheck = new JCheckBox("Pengangguran");
-        pengangguranCheck.setBounds(70, 150, 150, 20);
-        
+        pengangguranCheck.setBounds(850, 230, 150, 50);
+
+        panelKTP.add(karyawanSwastaCheck);
+        panelKTP.add(pnsCheck);
+        panelKTP.add(wiraswastaCheck);
+        panelKTP.add(akademisiCheck);
+        panelKTP.add(pengangguranCheck);
         pengangguranCheck.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
-
                 if (pengangguranCheck.isSelected()) {
-
-                    cekKaryawanSwasta.setEnabled(false);
+                    karyawanSwastaCheck.setEnabled(false);
                     pnsCheck.setEnabled(false);
                     wiraswastaCheck.setEnabled(false);
                     akademisiCheck.setEnabled(false);
 
-                    cekKaryawanSwasta.setSelected(false);
+                    karyawanSwastaCheck.setSelected(false);
                     pnsCheck.setSelected(false);
                     wiraswastaCheck.setSelected(false);
                     akademisiCheck.setSelected(false);
-
                 } else {
-
-                    cekKaryawanSwasta.setEnabled(true);
+                    karyawanSwastaCheck.setEnabled(true);
                     pnsCheck.setEnabled(true);
                     wiraswastaCheck.setEnabled(true);
                     akademisiCheck.setEnabled(true);
-
                 }
-
             }
-
         });
 
+        JLabel citizenshipLabel = new JLabel("Kewarganegaraan");
+        citizenshipLabel.setBounds(600, 280, 300, 50);
+        panelKTP.add(citizenshipLabel);
 
-        panelPekerjaan.add(labelPekerjaan);
-        panelPekerjaan.add(cekKaryawanSwasta);
-        panelPekerjaan.add(pnsCheck);
-        panelPekerjaan.add(wiraswastaCheck);
-        panelPekerjaan.add(akademisiCheck);
-        panelPekerjaan.add(pengangguranCheck);
-        //_______________________________________________________________________________________
+        JRadioButton rWNI = new JRadioButton("WNI");
+        JRadioButton rWNA = new JRadioButton("WNA");
 
-
-        //___________________________________Kewarganegaraan_____________________________________
-
-        panelKewarganegaraan.setLayout(null);
-        panelKewarganegaraan.setBackground(new Color(0x11bdd4));
-        panelKewarganegaraan.setBounds(400, 210, 400, 200);
-        
-        JLabel labelKewarganegaraan = new JLabel("Kewarganegaraan : ");
-        labelKewarganegaraan.setBounds(70, 65, 120, 30);
-
-        rWNI.setBounds(WIDTH, WIDTH, WIDTH, HEIGHT);
-        rWNA.setBounds(WIDTH, WIDTH, WIDTH, HEIGHT);
+        rWNI.setBounds(850, 280, 100, 50);
+        rWNA.setBounds(1000, 280, 100, 50);
 
         rWNI.setActionCommand("WNI");
         rWNA.setActionCommand("WNA");
 
-        panelKewarganegaraan.add(labelKewarganegaraan);
+        ButtonGroup citizenshipGroup = new ButtonGroup();
+        citizenshipGroup.add(rWNI);
+        citizenshipGroup.add(rWNA);
 
-        kewarganegaraanButton.add(rWNI);
-        kewarganegaraanButton.add(rWNA);
+        panelKTP.add(rWNI);
+        panelKTP.add(rWNA);
 
-        panelKewarganegaraan.add(rWNI);
-        panelKewarganegaraan.add(rWNA);
+        JLabel countryLabel = new JLabel("Asal Negara");
+        countryLabel.setBounds(600, 320, 300, 50);
+        countryLabel.setVisible(false);
+        panelKTP.add(countryLabel);
 
+        JTextField citizenshipField = new JTextField();
+        citizenshipField.setBounds(850, 330, 300, 30);
+        citizenshipField.setVisible(false);
+        panelKTP.add(citizenshipField);
 
-        // JLabel countryLabel = new JLabel("ASAL NEGARA");
-        // countryLabel.setBounds(600, 320, 300, 50);
-        // countryLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-        // countryLabel.setVisible(false); // SET VISIBLE FALSE -> DEFAULT
-        // formPanel.add(countryLabel);
+        rWNA.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                countryLabel.setVisible(true);
+                citizenshipField.setVisible(true);
+            }
+        });
 
-        // JTextField citizenshipField = new JTextField();
-        // citizenshipField.setBounds(850, 330, 300, 30);
-        // citizenshipField.setVisible(false); // SET VISIBLE FALSE -> DEFAULT
-        // formPanel.add(citizenshipField);
+        rWNI.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                countryLabel.setVisible(false);
+                citizenshipField.setVisible(false);
+                citizenshipField.setText("");
+            }
+        });
 
-        // wnaRadio.addActionListener(new ActionListener() {
+        JLabel photoLabel = new JLabel("Foto");
+        photoLabel.setBounds(600, 380, 100, 50);
+        panelKTP.add(photoLabel);
 
-        //     public void actionPerformed(ActionEvent e) {
+        JButton photoButton = new JButton("Upload Photo");
+        photoButton.setBounds(850, 380, 300, 40);
+        panelKTP.add(photoButton);
 
-        //         countryLabel.setVisible(true);
-        //         citizenshipField.setVisible(true);
+        photoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                int returnValue = fileChooser.showOpenDialog(null);
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    photoFile = fileChooser.getSelectedFile();
+                }
+            }
+        });
 
-        //     }
+        JLabel signatureLabel = new JLabel("Tanda Tangan");
+        signatureLabel.setBounds(600, 450, 200, 50);
+        panelKTP.add(signatureLabel);
 
-        // });
+        JButton signatureButton = new JButton("Upload Signature");
+        signatureButton.setBounds(850, 450, 300, 40);
+        panelKTP.add(signatureButton);
 
-        // wniRadio.addActionListener(new ActionListener() {
+        signatureButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                int returnValue = fileChooser.showOpenDialog(null);
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    signatureFile = fileChooser.getSelectedFile();
+                }
+            }
+        });
 
-        //     public void actionPerformed(ActionEvent e) {
+        JLabel tglBerlakuLabel = new JLabel("Berlaku Hingga");
+        tglBerlakuLabel.setBounds(600, 500, 200, 50);
+        panelKTP.add(tglBerlakuLabel);
 
-        //         countryLabel.setVisible(false);
-        //         citizenshipField.setVisible(false);
-        //         citizenshipField.setText("");
+        JTextField tglBerlakuField = new JTextField();
+        tglBerlakuField.setBounds(850, 510, 300, 30);
+        panelKTP.add(tglBerlakuField);
 
-        //     }
+        JLabel kotaPembuatanLabel = new JLabel("Kota Pembuatan");
+        kotaPembuatanLabel.setBounds(600, 550, 200, 50);
+        panelKTP.add(kotaPembuatanLabel);
 
-        // });
+        JTextField kotaPembuatanField = new JTextField();
+        kotaPembuatanField.setBounds(850, 560, 300, 30);
+        panelKTP.add(kotaPembuatanField);
 
-        //_______________________________________________________________________________________
+        JLabel tglPembuatanLabel = new JLabel("Tanggal Pembuatan");
+        tglPembuatanLabel.setBounds(600, 600, 220, 50);
+        panelKTP.add(tglPembuatanLabel);
 
+        // UtilDateModel tglBuatmodel = new UtilDateModel();
+        // Properties tglBuatProperties = new Properties();
+        // JDatePanelImpl tglBuatPanel = new JDatePanelImpl(tglBuatmodel, tglBuatProperties);
+        // JDatePickerImpl tglBuatPicker = new JDatePickerImpl(tglBuatPanel, new DateLabelFormatter());
 
+        // tglBuatPicker.setBounds(850, 610, 300, 30);
+        // panelKTP.add(tglBuatPicker);
 
+        JButton submitButton = new JButton("Submit");
+        submitButton.setBounds(950, 660, 200, 30);
+        panelKTP.add(submitButton);
 
+        submitButton.addActionListener(new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
+                if (controller.checkInput(nikField, namaField, tempatLahirField, genderGroup, golDarahGroup,
+                        alamatField, rtField, rwField, kelurahanField, kecamatanField, agamaComboBox, perkawinanBox,
+                        karyawanSwastaCheck, pnsCheck, wiraswastaCheck, akademisiCheck, pengangguranCheck,
+                        citizenshipGroup, citizenshipField, photoFile, signatureFile, tglBerlakuField,
+                        kotaPembuatanField)) {
 
+                    String nik = nikField.getText();
+                    String nama = namaField.getText();
+                    String tempatLahir = tempatLahirField.getText();
 
+                    JenisKelamin jenisKelamin = rPria.isSelected() ? JenisKelamin.PRIA : JenisKelamin.WANITA;
+                    String golDarah = golDarahGroup.getSelection().getActionCommand();
+                    String alamat = alamatField.getText();
+                    String rt = rtField.getText();
+                    String rw = rwField.getText();
+                    String kelDesa = kelurahanField.getText();
+                    String kecamatan = kecamatanField.getText();
+                    JenisAgama agama = controller.getJenisAgama(String.valueOf(agamaComboBox.getSelectedItem()));
+                    StatusPerkawinan statusPerkawinan = controller.getStatusPerkawinan(String.valueOf(perkawinanBox.getSelectedItem()));
+                    String pekerjaan = controller.getSelectedJobs(karyawanSwastaCheck, pnsCheck, wiraswastaCheck, akademisiCheck, pengangguranCheck);
+                    String wargaNegaraAsal = rWNA.isSelected() ? citizenshipField.getText() : null;
+                    String kewarganegaraan = controller.getCitizenship(citizenshipGroup.getSelection().getActionCommand(), wargaNegaraAsal);
+                    String berlakuHingga = tglBerlakuField.getText();
+                    String kotaPembuatan = kotaPembuatanField.getText();
 
+                    // Date tanggalPembuatan = (Date) tglBuatPicker.getModel().getValue();
+                    // LocalDate tanggalPembuatanlocalDate = tanggalPembuatan.toInstant()
+                    // .atZone(ZoneId.systemDefault())
+                    // .toLocalDate();
+                    // String tanggalPembuatanlocalDateFormatted = tanggalPembuatanlocalDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                    
+                    KTP ktp = controller.createKTP(nik, nama, tempatLahir, jenisKelamin, golDarah, alamat, rt, rw, kelDesa, kecamatan, agama, statusPerkawinan,
+                    pekerjaan, kewarganegaraan, wargaNegaraAsal, photoFile, signatureFile, berlakuHingga, kotaPembuatan, 1);
 
+                    myFrame.dispose();
+                    new outputKTP(ktp);
+                }
+                else {
+                    JOptionPane.showMessageDialog(myFrame, "Semua field harus diisi", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
 
+        JButton mainMenuButton = new JButton("Balik ke Main Menu");
+        mainMenuButton.setBounds(50, 660, 250, 30);
+        panelKTP.add(mainMenuButton);
 
+        mainMenuButton.addActionListener(e -> {
+            myFrame.dispose();
+        });
 
-
-
-
-
-
-
-        //___________________________________SUBMIT_____________________________
-        // buttonPanel.setLayout(null);
-        // buttonPanel.setBackground(new Color(0x11bdd4));
-        // buttonPanel.setBounds(75, 280, 100, 30);
-        // button.setBounds(0, 0, 100, 30);
-        // buttonPanel.add(button);
-        //______________________________________________________________________
-
-
-        this.add(panelNIK);
-        this.add(panelNama);
-        this.add(panelTempatLahir);
-        this.add(panelJenisKelamin);
-        this.add(panelGolDarah);
-        this.add(panelAlamat);
-        this.add(panelRTRW);
-        this.add(panelKelDesa);
-        this.add(panelKecamatan);
-        this.add(panelAgama);
-        this.add(panelKawin);
-        this.add(panelPekerjaan);
-        this.add(panelKewarganegaraan);
-
-        this.add(buttonPanel);
-        this.setVisible(true);
-    }
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == button) {
-            String nik = NIK.getText();
-            String nama = Nama.getText();
-            String tempat = tempatLahir.getText();
-
-    
-            System.out.println("NIK: " + nik);
-            System.out.println("Nama: " + nama);
-            System.out.println("Tempat Lahir: " + tempat);
-    
-            NIK.setText("");
-            Nama.setText("");
-            tempatLahir.setText("");
+        if (actionValue == 1) {
+            submitButton.setVisible(true);
         }
+        else {
+            submitButton.setVisible(false);
+
+            nikField.setText(myKtp.getNik());
+            namaField.setText(myKtp.getNama());
+            tempatLahirField.setText(myKtp.getTempatLahir());
+
+            // String tanggalLahirString = myKtp.getTanggalLahir();
+            // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            // LocalDate tanggalLahirLocalDate = LocalDate.parse(tanggalLahirString, formatter);
+            // Date tanggalLahir = Date.from(tanggalLahirLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            // model.setValue(tanggalLahir);
+
+
+            if (myKtp.getJenisKelamin() == JenisKelamin.PRIA) {
+                rPria.setSelected(true);
+            }
+            else {
+                rWanita.setSelected(true);
+            }
+
+            String golDarah = myKtp.getGolDarah();
+
+            switch (golDarah) {
+                case "A":
+                    aRadio.setSelected(true);
+                    break;
+                case "B":
+                    bRadio.setSelected(true);
+                    break;
+                case "O":
+                    oRadio.setSelected(true);
+                    break;
+                case "AB":
+                    abRadio.setSelected(true);
+                    break;
+            }
+
+            alamatField.setText(myKtp.getAlamat());
+            rtField.setText(myKtp.getRt());
+            rwField.setText(myKtp.getRw());
+            kelurahanField.setText(myKtp.getKelDesa());
+            kecamatanField.setText(myKtp.getKecamatan());
+
+            agamaComboBox.setSelectedItem(myKtp.getAgama().toString());
+
+            perkawinanBox.setSelectedItem(myKtp.getStatusPerkawinan().toString());
+
+            String[] listJobs = controller.setSelectedJobs(myKtp.getPekerjaan());
+
+            for (int i = 0; i < listJobs.length; i++) {
+                switch (listJobs[i]) {
+                    case "KARYAWAN SWASTA":
+                        karyawanSwastaCheck.setSelected(true);
+                        break;
+                    case "PNS":
+                        pnsCheck.setSelected(true);
+                        break;
+                    case "WIRASWASTA":
+                        wiraswastaCheck.setSelected(true);
+                        break;
+                    case "AKADEMISI":
+                        akademisiCheck.setSelected(true);
+                        break;
+                    case "PENGANGGURAN":
+                        pengangguranCheck.setSelected(true);
+                        break;
+                }
+            }
+
+            String kewarganegaraan = myKtp.getKewarganegaraan();
+            if (kewarganegaraan.equals("WNI")) {
+                rWNI.setSelected(true);
+                citizenshipField.setVisible(false);
+            }
+            else {
+                rWNA.setSelected(true);
+                citizenshipField.setVisible(true);
+                citizenshipField.setText(myKtp.getWargaNegaraAsal());
+            }
+
+            photoFile = myKtp.getFotoFilePath();
+            signatureFile = myKtp.getTandaTanganFilePath();
+
+            tglBerlakuField.setText(myKtp.getBerlakuHingga());
+            kotaPembuatanField.setText(myKtp.getKotaPembuatan());
+
+            // String tanggalPembuatanString = myKtp.getTanggalPembuatan();
+            // DateTimeFormatter tanggalPembuatanformatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            // LocalDate tanggalPembuatanLocalDate = LocalDate.parse(tanggalPembuatanString, tanggalPembuatanformatter);
+            // Date tanggalPembuatan = Date.from(tanggalPembuatanLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            // tglBuatmodel.setValue(tanggalPembuatan);
+
+        }
+
+        myFrame.add(panelKTP);
+
+        myFrame.setVisible(true);
+
     }
+
 }
