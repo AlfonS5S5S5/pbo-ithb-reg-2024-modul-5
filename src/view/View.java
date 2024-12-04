@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Properties;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -18,11 +19,16 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+
 import controller.controller;
 import model.classessss.KTP;
 import model.enummm.JenisAgama;
 import model.enummm.JenisKelamin;
 import model.enummm.StatusPerkawinan;
+
 public class View {
 
     private File photoFile;
@@ -87,13 +93,13 @@ public class View {
         tglLahirLabel.setBounds(50, 200, 200, 50);
         panelKTP.add(tglLahirLabel);
 
-        // UtilDateModel model = new UtilDateModel();
-        // Properties p = new Properties();
-        // JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-        // JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+        UtilDateModel model = new UtilDateModel();
+        Properties p = new Properties();
+        JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 
-        // datePicker.setBounds(250, 210, 300, 30);
-        // panelKTP.add(datePicker);
+        datePicker.setBounds(250, 210, 300, 30);
+        panelKTP.add(datePicker);
 
         JLabel genderLabel = new JLabel("Jenis Kelamin");
         genderLabel.setBounds(50, 250, 200, 50);
@@ -359,13 +365,13 @@ public class View {
         tglPembuatanLabel.setBounds(600, 600, 220, 50);
         panelKTP.add(tglPembuatanLabel);
 
-        // UtilDateModel tglBuatmodel = new UtilDateModel();
-        // Properties tglBuatProperties = new Properties();
-        // JDatePanelImpl tglBuatPanel = new JDatePanelImpl(tglBuatmodel, tglBuatProperties);
-        // JDatePickerImpl tglBuatPicker = new JDatePickerImpl(tglBuatPanel, new DateLabelFormatter());
+        UtilDateModel tglBuatmodel = new UtilDateModel();
+        Properties tglBuatProperties = new Properties();
+        JDatePanelImpl tglBuatPanel = new JDatePanelImpl(tglBuatmodel, tglBuatProperties);
+        JDatePickerImpl tglBuatPicker = new JDatePickerImpl(tglBuatPanel, new DateLabelFormatter());
 
-        // tglBuatPicker.setBounds(850, 610, 300, 30);
-        // panelKTP.add(tglBuatPicker);
+        tglBuatPicker.setBounds(850, 610, 300, 30);
+        panelKTP.add(tglBuatPicker);
 
         JButton submitButton = new JButton("Submit");
         submitButton.setBounds(950, 660, 200, 30);
